@@ -1,10 +1,25 @@
 [build]
   publish = "."
-  
+  command = "npm run build"
+
 [[redirects]]
   from = "/*"
   to = "/Safetap.html"
   status = 200
-  
+
+# Proxy API calls to Railway backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://safetap-sphere-app-production.up.railway.app/api/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+
 [build.environment]
   NODE_VERSION = "18"
