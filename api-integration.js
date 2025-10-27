@@ -1,7 +1,9 @@
-// API Integration for SafeTap
+// API Integration for SafeTap - v2.0
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:3001/api'
   : 'https://safetap-app-sphere.onrender.com/api';
+
+console.log('API_BASE loaded:', API_BASE);
 
 // Test API connection
 const testAPIConnection = async () => {
