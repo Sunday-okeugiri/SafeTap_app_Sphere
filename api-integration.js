@@ -1,7 +1,7 @@
 // API Integration for SafeTap
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:3001/api'
-  : 'https://safetap-sphere-app-production.up.railway.app/api';
+  : 'https://YOUR_NEW_RAILWAY_URL/api';
 
 // Test API connection
 const testAPIConnection = async () => {
