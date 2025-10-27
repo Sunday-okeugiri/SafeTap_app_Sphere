@@ -4,7 +4,7 @@
 
 ### 🌐 Live Application
 - **Frontend**: [SafeTap Sphere on Netlify](https://your-app.netlify.app)
-- **Backend API**: [Railway Deployment](https://safetap-sphere-app-production.up.railway.app)
+- **Backend API**: [Render Deployment](https://safetap-app-sphere.onrender.com)
 - **Demo Login**: `demo@safetap.com` / `demo123`
 
 ### Local Development
@@ -74,7 +74,7 @@ Backend uses these environment variables (already configured):
 
 ### Production Stack
 - **Frontend**: Netlify (Static hosting with SPA routing)
-- **Backend**: Railway (Node.js API with auto-scaling)
+- **Backend**: Render (Node.js API with auto-scaling)
 - **Database**: Supabase (PostgreSQL with real-time features)
 - **SMS**: Twilio (Emergency alert system)
 
@@ -83,8 +83,8 @@ Backend uses these environment variables (already configured):
 # Frontend (Netlify)
 git push origin main  # Auto-deploys via GitHub integration
 
-# Backend (Railway)
-git push origin main  # Auto-deploys with railway.json config
+# Backend (Render)
+git push origin main  # Auto-deploys via GitHub integration
 ```
 
 ## 🎯 Key Improvements Made
@@ -95,7 +95,7 @@ git push origin main  # Auto-deploys with railway.json config
 4. **SMS Integration**: Emergency alerts to trusted contacts
 5. **Database Integration**: Persistent data storage with Supabase
 6. **API Fallbacks**: Graceful degradation to localStorage when offline
-7. **Production Deployment**: Full-stack deployment on Netlify + Railway
+7. **Production Deployment**: Full-stack deployment on Netlify + Render
 
 ## 🚨 Demo Credentials
 - **Email**: demo@safetap.com
