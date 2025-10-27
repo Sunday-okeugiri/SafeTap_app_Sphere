@@ -35,12 +35,12 @@ async function loginUser(email, password) {
       body: JSON.stringify({ email, password })
     });
     
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    
     const data = await response.json();
-    console.log('Login response:', data);
+    console.log('Login response:', response.status, data);
+    
+    if (!response.ok) {
+      return { error: data.error || `HTTP ${response.status}: ${response.statusText}` };
+    }
     
     if (data.success) {
       currentUser = data.user;
@@ -65,12 +65,13 @@ async function registerUser(email, password, fullName, trustedContact) {
       body: JSON.stringify({ email, password, fullName, trustedContact })
     });
     
+    const data = await response.json();
+    console.log('Registration response:', response.status, data);
+    
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return { error: data.error || `HTTP ${response.status}: ${response.statusText}` };
     }
     
-    const data = await response.json();
-    console.log('Registration response:', data);
     return data;
   } catch (error) {
     console.error('Registration error:', error);
