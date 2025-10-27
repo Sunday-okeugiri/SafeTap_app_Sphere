@@ -2,37 +2,77 @@
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:3001/api'
   : 'https://safetap-sphere-app-production.up.railway.app/api';
+
+// Test API connection
+const testAPIConnection = async () => {
+  try {
+    const response = await fetch(API_BASE.replace('/api', ''));
+    const data = await response.json();
+    console.log('API Connection:', data);
+    return true;
+  } catch (error) {
+    console.error('API Connection Failed:', error);
+    return false;
+  }
+};
+
+// Test connection on load
+testAPIConnection();
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 // Auth functions
 async function loginUser(email, password) {
   try {
+    console.log('Attempting login to:', `${API_BASE}/auth/login`);
     const response = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({ email, password })
     });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
     const data = await response.json();
+    console.log('Login response:', data);
+    
     if (data.success) {
       currentUser = data.user;
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
     }
     return data;
   } catch (error) {
-    return { error: error.message };
+    console.error('Login error:', error);
+    return { error: `Failed to fetch: ${error.message}` };
   }
 }
 
 async function registerUser(email, password, fullName, trustedContact) {
   try {
+    console.log('Attempting registration to:', `${API_BASE}/auth/register`);
     const response = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({ email, password, fullName, trustedContact })
     });
-    return await response.json();
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    console.log('Registration response:', data);
+    return data;
   } catch (error) {
-    return { error: error.message };
+    console.error('Registration error:', error);
+    return { error: `Failed to fetch: ${error.message}` };
   }
 }
 
