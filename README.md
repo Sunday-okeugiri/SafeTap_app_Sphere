@@ -2,13 +2,20 @@
 
 ## 🚀 Quick Start
 
-### Option 1: Automated Setup
+### 🌐 Live Application
+- **Frontend**: [SafeTap Sphere on Netlify](https://your-app.netlify.app)
+- **Backend API**: [Railway Deployment](https://safetap-sphere-app-production.up.railway.app)
+- **Demo Login**: `demo@safetap.com` / `demo123`
+
+### Local Development
+
+#### Option 1: Automated Setup
 ```bash
 # Run the startup script
 start.bat
 ```
 
-### Option 2: Manual Setup
+#### Option 2: Manual Setup
 
 1. **Backend Setup**
 ```bash
@@ -63,6 +70,23 @@ Backend uses these environment variables (already configured):
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_PHONE_NUMBER`
 
+## 🚀 Deployment
+
+### Production Stack
+- **Frontend**: Netlify (Static hosting with SPA routing)
+- **Backend**: Railway (Node.js API with auto-scaling)
+- **Database**: Supabase (PostgreSQL with real-time features)
+- **SMS**: Twilio (Emergency alert system)
+
+### Deployment Commands
+```bash
+# Frontend (Netlify)
+git push origin main  # Auto-deploys via GitHub integration
+
+# Backend (Railway)
+git push origin main  # Auto-deploys with railway.json config
+```
+
 ## 🎯 Key Improvements Made
 
 1. **Authentication System**: Full Supabase Auth integration
@@ -71,6 +95,7 @@ Backend uses these environment variables (already configured):
 4. **SMS Integration**: Emergency alerts to trusted contacts
 5. **Database Integration**: Persistent data storage with Supabase
 6. **API Fallbacks**: Graceful degradation to localStorage when offline
+7. **Production Deployment**: Full-stack deployment on Netlify + Railway
 
 ## 🚨 Demo Credentials
 - **Email**: demo@safetap.com
