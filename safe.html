@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SafeTap Sphere — Hackathon </title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <link rel="stylesheet" href="safeStyling.css">
+</head>
+<body>
+  <div class="app">
+    <nav class="topnav">
+      <button data-screen="home" class="active">HOME</button>
+      <button data-screen="sos">SOS</button>
+      <button data-screen="map">MAP</button>
+      <button data-screen="report">REPORT</button>
+      <button data-screen="community">COMMUNITY</button>
+      
+      <div class="dropdown">
+        <button onclick="toggleDropdown()" class="dropbtn">More ▼</button>
+        <div id="dropdownMenu" class="dropdown-content">
+          <button data-screen="support">SUPPORT</button>
+          <button data-screen="education">EDUCATION</button>
+          <button data-screen="admin">ADMIN</button>
+          <button data-screen="settings">SETTINGS</button>
+        </div>
+      </div>
+    </nav>
+    
+    <main>
+      
+      <section id="home" class="screen active" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <div style="text-align: center; margin-bottom: 32px;">
+<h1 style="font-size: 3rem; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">🔒 SAFE TAP SPHERE</h1>
+<p class="lead" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: black;">Your intelligent safety companion powered by AI, community support, and real-time awareness.</p>
+</div>
+        <div class="card-grid" style="margin-bottom: 32px;">
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #951c1c);">
+<h3 style="color: red; margin-bottom: 16px;"> Emergency Actions</h3>
+<div class="quick" style="flex-direction: column; gap: 12px;">
+<button id="quickSOS" class="primary" style="width: 100%; background: linear-gradient(135deg, var(--danger), #b11d1d);"> QUICK SOS</button>
+<button id="simulateTap" class="ghost" style="width:100%; color: rgb(168,3,3);"><b>SIMULATE TAP</b></button>
+</div>
+</div>
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #dbeafe, #1a5bab);">
+<h3 style="color: blue; margin-bottom: 16px;"> Detection Features</h3>
+<div class="quick" style="flex-direction: column; gap: 12px;">
+<button id="simulateShake" class="ghost" style="width:100%; color: rgb(2,2,190);"><b>SIMULATE SHAKE</b></button>
+<button id="startVoice" class="ghost" style="width:100%; color: rgb(2,2,190);"><b>VOICE LISTEN</b></button>
+</div>
+</div>
+</div>
+<div style="text-align: center; padding: 24px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1)); border-radius: 16px; border: 2px solid rgba(102, 126, 234, 0.2);">
+<h3 style="color: var(--accent-1); margin-bottom: 12px;"> Stay Protected, Stay Connected</h3>
+<p class="lead" style="color: black;">Join thousands of users creating safer communities through technology and awareness.</p>
+</div>
+      </section>
+
+      
+      <section id="sos" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>🆘 Emergency SOS</h2>
+        <p>Press and hold the button below to send an emergency alert to your trusted contacts.</p>
+        <div style="margin: 40px 0;">
+          <button id="sosBtnLarge" class="sos-round">SOS</button>
+        </div>
+        <div id="sosStatus" class="lead"></div>
+        
+        <div class="card" style="margin: 20px auto; max-width: 500px; text-align: left; background: rgba(255, 255, 255, 0.9); border: 2px solid rgba(239, 68, 68, 0.3);">
+          <h3 style="color: var(--danger); margin-bottom: 12px; text-align: center;">📱 What Happens When You Send an SOS?</h3>
+          <p style="margin-bottom: 12px; font-weight: 600;">Your alert includes the following information:</p>
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+            <li>Your GPS location is shared with trusted contacts and nearby responders</li>
+            <li>Timestamp of the emergency is recorded</li>
+            <li>SMS fallback is triggered if internet connection is poor</li>
+            <li>Optional: Emergency services are notified based on your settings</li>
+          </ul>
+        </div>
+        
+        <div class="card" style="margin: 20px auto; max-width: 500px; text-align: center; background: rgba(102, 126, 234, 0.1); border: 2px solid rgba(102, 126, 234, 0.3);">
+          <h3 style="color: var(--accent-1); margin-bottom: 12px;">🚨 Nearby Responders Alert</h3>
+          <p style="color: var(--accent-1); font-weight: 600; margin-bottom: 8px;">Coming Soon!</p>
+          <p style="font-size: 0.9rem; color: #666; margin: 0;">Connect with verified community responders in your area for faster emergency assistance.</p>
+        </div>
+        
+        <p style="color: var(--muted); font-size: 0.9rem; margin-top: 20px;">Emergency services: 10111 | Medical: 112</p>
+      </section>
+
+     
+      <section id="mapScreen" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Live Map & Safety Zones</h2>
+        <div class="controls" style="display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap;">
+          <button id="showMarkers" class="ghost" style="padding: 8px 16px;">Show Reports</button>
+          <button id="showHeat" class="ghost" style="padding: 8px 16px;">Show Heatmap</button>
+          <button id="showSafetyZones" class="primary" style="padding: 8px 16px;">Safety Zones</button>
+          <button id="clearReports" class="ghost" style="padding: 8px 16px; color: #ef4444;">Clear Reports</button>
+        </div>
+        <div id="mapContainer" style="margin: 20px 0;">
+          <div id="map" style="height: 400px; width: 100%; border: 2px solid #ccc; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+          <div id="reportsPre" class="reportsPre">No reports yet.</div>
+        </div>
+      </section>
+
+      
+      <section id="report" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Anonymous Reporting</h2>
+        <form id="reportForm">
+          <label>Type
+            <select id="rType">
+              <option value="harassment">Harassment</option>
+              <option value="theft">Theft</option>
+              <option value="violence">Violence</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>Description:
+            <textarea id="rDesc" rows="4" required placeholder="Describe what happened..."></textarea>
+          </label>
+          <label class="inline">
+            <p>Submit anonymously</p>
+            <input type="checkbox" id="rAnon" checked />
+          </label>
+          <div class="formActions">
+            <button type="submit" class="primary">Submit Report</button>
+          </div>
+        </form>
+        <div id="reportStatus" class="lead"></div>
+      </section>
+
+      <section id="community" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>🌍 Sphere's Community</h2>
+        <p class="lead">Stay connected with your community's safety updates and resources</p>
+        
+        <div class="card-grid" style="margin-bottom: 32px;">
+          <div class="card">
+            <h3>📊 Recent Reports</h3>
+            <div id="recentReports" style="text-align: left; max-height: 200px; overflow-y: auto;">
+              <p style="color: #666; font-style: italic;">Loading recent community reports...</p>
+            </div>
+            <button class="ghost" onclick="document.querySelector('[data-screen=\"map\"]').click()">View Full Map</button>
+          </div>
+          
+          <div class="card">
+            <h3>📚 Education Hub</h3>
+            <p><b>Quick Access to Safety Resources</b></p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button class="ghost" onclick="window.open('https://www.youtube.com/results?search_query=know+your+rights+south+africa+safety', '_blank')">Know Your Rights</button>
+              <button class="ghost" onclick="window.open('https://www.youtube.com/results?search_query=self+defense+tips+for+women', '_blank')">Self-Defence Tips</button>
+              <button class="ghost" onclick="window.open('https://www.youtube.com/results?search_query=mental+health+support+after+trauma', '_blank')">Mental Health Support</button>
+            </div>
+            <div style="margin-top: 12px; padding: 8px; background: rgba(102, 126, 234, 0.1); border-radius: 8px; text-align: center;">
+              <small style="color: var(--accent-1); font-weight: 600;">🎓 Interactive Courses Coming Soon!</small>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>🆘 Support Network</h3>
+            <p><b>Get Help When You Need It</b></p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button class="primary" onclick="alert('Calling 10111...')">Emergency Hotline</button>
+              <button class="ghost" onclick="window.open('https://www.sadag.org/', '_blank')">Counselling Services</button>
+              <button class="ghost" onclick="window.open('https://share.google/38K5wp95q0QbU0jSM', '_blank')">Legal Aid</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1)); border: 2px solid rgba(102, 126, 234, 0.2);">
+          <h3>💪 Community Stats</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+            <div>
+              <div id="totalReports" style="font-size: 2rem; font-weight: bold; color: var(--accent-1);">0</div>
+              <div style="font-size: 0.9rem; color: #666;">Total Reports</div>
+            </div>
+            <div>
+              <div id="totalAlerts" style="font-size: 2rem; font-weight: bold; color: var(--danger);">0</div>
+              <div style="font-size: 0.9rem; color: #666;">SOS Alerts</div>
+            </div>
+            <div>
+              <div id="activeUsers" style="font-size: 2rem; font-weight: bold; color: var(--accent-2);">1</div>
+              <div style="font-size: 0.9rem; color: #666;">Active Users</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="support" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Support & Resources</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Emergency Hotline</h3>
+            <p><b>Call 10111  or 112 from mobile.</b></p>
+            <button class="primary" onclick="alert('Calling emergency...')">Call Now</button>
+          </div>
+          <div class="card">
+            <h3>Counselling</h3>
+            <p><b>Talk to a licensed counsellor for trauma or anxiety support.</b> <ul>
+              <li>Explain that counselling offers a safe, confidential space for survivors to speak openly about their experiences.</li>
+           <li> Emphasize emotional healing, trauma recovery, and rebuilding self-esteem.</li>
+           <li> Include both in-person and online counselling options.</li>
+              <li>Provide links to mental wellness articles, self-help exercises, and guided meditations.</li>
+
+         <li> Include helpline contacts for emergency mental health support (local and national).</li>
+          </ul></p>
+            <button class="primary"><a href="tel:+27719657228">Chat with Counsellor</a></button>
+          </div>
+          <div class="card">
+            <h3>Legal Help</h3>
+            <p><b>Free legal aid for victims of harassment and abuse.</b>
+              <ul>
+                <li>Assistance with reporting cases of gender-based violence, assault, or harassment.</li>
+
+                  <li>Guidance on filing protection orders (restraining orders) to ensure safety.</li>
+
+              <li>Legal representation in court for survivors who cannot afford private lawyers.</li>
+
+            <li>Support in lodging police reports and understanding your legal rights during the process.</li>
+                <li>Help with documentation and evidence collection (e.g., medical reports, witness statements).</li>
+            <li> Confidential consultations with trained legal professionals experienced in GBV cases.</li>
+             <li> Information on workplace harassment laws and how to file complaints.</li>
+             <li>Access to free or low-cost paralegal services for rural and vulnerable communities.</li> 
+             <li>Referrals to government or NGO legal services for long-term case support.</li> 
+             <li> Education on your legal rights — understanding what protection the law provides against abuse.</li>
+              <li>Assistance for minors and vulnerable persons through child protection and social workers.</li>
+              </ul>
+              <i>Follow-up legal support to ensure justice and survivor safety even after court proceedings.</i>
+            </p>
+            <button class="primary">Contact Legal Advisor</button>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="education" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Education Hub</h2>
+        <p><b>Learn about your rights, self-defence, and mental health awareness.</b></p>
+        <div class="card-grid">
+          <div class="card"><h3>Know Your Rights</h3><p><b>Your Legal and Personal Rights in GBV Situations</b>
+<ul>
+<li>You have the right to live free from any form of abuse — physical, emotional, sexual, or financial.</li>
+<li>You can report GBV to any police station — the police must assist you immediately.</li>
+<li>You have the right to apply for a Protection Order (restraining order) to keep the abuser away.</li>
+<li>Hospitals must provide free emergency medical treatment and help collect evidence.</li>
+<li>Your personal information must be kept private and confidential.</li>
+<li>You can insist on respectful treatment from police, doctors, or legal officers.</li>
+<li>You have the right to free counselling and shelter if you are unsafe at home.</li>
+<li>Online abuse (harassment, sharing private photos, or threats) is also a crime — and you can report it.</li></ul>
+
+<i>SafeTap helps you report abuse safely, connect to legal aid, and find protection resources.</i> </p></div>
+          
+          <div class="card"><h3>Self-Defence Basics</h3><p><b>Simple Steps to Protect Yourself Safely</b>
+<ul>
+<li>Stay aware of your surroundings — trust your instincts if something feels wrong.</li>
+<li>Use your voice — shout “NO!” or “HELP!” to attract attention.</li>
+<li>Keep keys, alarms, or SafeTap SOS accessible for emergencies.</li>
+<li>Create distance — step back, block, or push away if someone approaches aggressively.</li>
+<li>Target vulnerable areas (eyes, throat, knees) if you must defend yourself.</li>
+<li>Take basic self-defence classes — SafeTap can list nearby workshops.</li>
+<li>Avoid confrontation if possible — escaping to safety is the first goal.</li>
+<li>Keep your location sharing on in the SafeTap app when walking alone at night.</li>
+</ul>
+<i> Self-defence is about protection, not violence — use it only to escape danger.</i></p></div>
+          
+          <div class="card"><h3>Mental Health</h3><p><b>Emotional Healing and Support After GBV</b> 
+<ul>
+<li>It’s normal to feel fear, anger, shame, or confusion — you are not alone.</li>
+<li>Speak to a trusted friend, counsellor, or mental health professional — talking helps you heal.</li>
+<li>You have the right to trauma counselling and psychological support services after abuse.</li>
+<li>Practice self-care: sleep, eat properly, and take time to rest.</li>
+<li>>Avoid isolation — join survivor support groups or community healing programs.</li>
+<li>Breathing and relaxation exercises can reduce panic and anxiety.</li>
+<li>You can use SafeTap’s Resources to access hotlines, online therapy links, or nearby users.</li>
+</ul>
+<i> mental recovery is part of justice — healing your mind empowers your future.</i></p></div>
+        </div>
+        
+        <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1)); border-radius: 16px; border: 2px solid rgba(102, 126, 234, 0.2); text-align: center;">
+          <h3 style="color: var(--accent-1); margin-bottom: 12px;">🎓 Interactive Courses Coming Soon!</h3>
+          <p style="color: var(--muted); margin: 0;">We're developing comprehensive online courses covering safety awareness, legal rights, and self-defense techniques. Stay tuned for updates!</p>
+        </div>
+      </section>
+
+      
+      <section id="admin" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Community Impact Dashboard</h2>
+        <canvas id="chart" width="400" height="200"></canvas>
+        <p class="lead">Visualizing reports and SOS activity.</p>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="screen" style="text-align: center; background: linear-gradient(135deg, #fee2e2, #d5c1c1);">
+        <h2>Settings & Profile</h2>
+        <label>Preferred Language:
+          <select id="langSelect">
+            <option>English</option>
+            <option>Zulu</option>
+            <option>Sesotho</option>
+          </select>
+        </label>
+        <label>Alert Method:
+          <select id="alertMethod">
+            <option>Push Notification</option>
+            <option>SMS</option>
+            <option>Email</option>
+          </select>
+        </label>
+        <label>Trusted Contact:
+          <input type="text" id="trustedContact" placeholder="+27..." />
+        </label>
+        <button class="primary" onclick="saveSettings()">Save Settings</button>
+      </section>
+    </main>
+
+    <footer>
+      <small style="color: rgb(0, 0, 0);">&copy; 2025 SafeTap Sphere - Built for FNB Hackathon by TUT Students</small>
+    </footer>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="api-integration.js"></script>
+
+  <script>
+// Check if user is logged in
+if (!localStorage.getItem('safetap_logged_in')) {
+  window.location.href = 'Safetap.html';
+}
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const STORAGE_KEY = "safetap_reports_v1";
+
+// Navigation with smooth transitions
+$$('.topnav button[data-screen], .dropdown-content button[data-screen]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.topnav button[data-screen], .dropdown-content button[data-screen]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Close dropdown if open
+    document.getElementById('dropdownMenu').classList.remove('show');
+    
+    // Fade out current screen
+    const currentScreen = $('.screen.active');
+    if(currentScreen) {
+      currentScreen.style.opacity = '0';
+      currentScreen.style.transform = 'translateX(-20px)';
+      setTimeout(() => {
+        $$('.screen').forEach(sec=>sec.classList.remove('active'));
+        const id = btn.dataset.screen === 'map' ? 'mapScreen' : btn.dataset.screen;
+        const newScreen = $('#'+id);
+        newScreen.classList.add('active');
+        
+        // Trigger reflow and fade in
+        setTimeout(() => {
+          newScreen.style.opacity = '1';
+          newScreen.style.transform = 'translateX(0)';
+        }, 50);
+      }, 200);
+    } else {
+      $$('.screen').forEach(sec=>sec.classList.remove('active'));
+      const id = btn.dataset.screen === 'map' ? 'mapScreen' : btn.dataset.screen;
+      $('#'+id).classList.add('active');
+    }
+  });
+});
+
+// Storage & reports
+function loadReports(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");}
+function saveReports(r){localStorage.setItem(STORAGE_KEY,JSON.stringify(r));}
+function renderReports(){
+  const pre=$('#reportsPre');
+  const r=loadReports();
+  if(r.length===0){
+    pre.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);"><h3>📋 No Reports Yet</h3><p>Be the first to contribute to community safety!</p></div>';
+  }else{
+    pre.innerHTML=r.map(rep=>{
+      const time = rep.ts ? new Date(rep.ts).toLocaleString() : new Date(rep.timestamp || Date.now()).toLocaleString();
+      const typeIcon=rep.type==='SOS'?'🆘':rep.type==='harassment'?'⚠️':rep.type==='theft'?'🚨':rep.type==='violence'?'🔴':'📝';
+      const mapsLink = rep.lat && rep.lon ? `https://maps.google.com/?q=${rep.lat},${rep.lon}` : '#';
+      return `<div class="report-item">
+        <div class="report-header">
+          <span class="report-type">${typeIcon} ${rep.type.toUpperCase()}</span>
+          <span class="report-location">📍 ${rep.location||'Unknown'}</span>
+        </div>
+        <div class="report-description">${rep.description}</div>
+        <div class="report-time">⏰ ${time} ${rep.lat && rep.lon ? `<a href="${mapsLink}" target="_blank" style="color: var(--accent-1); text-decoration: none;">🗺️ View Location</a>` : ''}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+async function createReport({type,description,anonymous}){
+  let lat=-26.2041, lon=28.0473, location='Johannesburg';
+  
+  // Try to get actual location for reports too
+  try {
+    const pos = await new Promise((res,rej)=>{
+      navigator.geolocation.getCurrentPosition(res,rej,{timeout:3000});
+    });
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+    location = getNearestCity(lat, lon);
+  } catch(e) {
+    console.log('Using default location for report');
+  }
+  
+  const rep={id:Date.now(),type,description,anonymous,lat,lon,location,ts:new Date().toISOString()};
+  const arr=loadReports();arr.push(rep);saveReports(arr);renderReports();return rep;
+}
+
+function getNearestCity(lat,lon){
+  if (!lat || !lon || isNaN(lat) || isNaN(lon)) {
+    return 'Johannesburg';
+  }
+  let nearest='Johannesburg',minDist=Infinity;
+  Object.entries(cities).forEach(([name,[clat,clon]])=>{
+    const dist=Math.sqrt((lat-clat)**2+(lon-clon)**2);
+    if(dist<minDist){minDist=dist;nearest=name;}
+  });
+  return nearest;
+}
+
+// SOS + Quick Triggers
+$('#quickSOS').onclick=()=>{createReport({type:'SOS',description:'Quick SOS',anonymous:true});showNotification('success', 'Quick SOS Activated!', 'Emergency alert has been logged anonymously.');};
+$('#simulateTap').onclick=()=>{createReport({type:'Tap',description:'Tap trigger',anonymous:true});showNotification('warning', 'Tap Detection', 'Emergency tap sequence detected and logged.');};
+$('#simulateShake').onclick=()=>{createReport({type:'Shake',description:'Shake simulated',anonymous:true});showNotification('warning', 'Shake Detection', 'Device shake pattern detected and logged.');};
+// Notification system
+function showNotification(type, title, message) {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <div class="notification-header">
+      <span>${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}</span>
+      <strong>${title}</strong>
+    </div>
+    <div class="notification-body">${message}</div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => notification.classList.add('show'), 100);
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => document.body.removeChild(notification), 400);
+  }, 4000);
+}
+
+$('#sosBtnLarge').onclick=async()=>{
+  $('#sosStatus').innerHTML='<div style="color: var(--danger); font-weight: 600;">🚨 Sending Emergency Alert...</div>';
+  
+  const alertId = Date.now();
+  let lat = -26.2041, lon = 28.0473, location = 'Johannesburg';
+  
+  // Try to get actual location
+  try {
+    const pos = await new Promise((res,rej)=>{
+      navigator.geolocation.getCurrentPosition(res,rej,{timeout:5000});
+    });
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+    location = getNearestCity(lat, lon);
+  } catch(e) {
+    console.log('Using default location');
+  }
+  
+  const trustedContact = localStorage.getItem('trustedContact');
+  const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+  
+  // Create report with coordinates
+  const report = {
+    id: alertId,
+    type: 'SOS',
+    description: 'Emergency SOS activated',
+    location: location,
+    lat: lat,
+    lon: lon,
+    ts: new Date().toISOString()
+  };
+  
+  // Save to localStorage
+  const reports = JSON.parse(localStorage.getItem('safetap_reports_v1') || '[]');
+  reports.push(report);
+  localStorage.setItem('safetap_reports_v1', JSON.stringify(reports));
+  
+  // Show success message with maps link
+  $('#sosStatus').innerHTML=`<div style="color: var(--success); font-weight: 600;">✅ SOS Alert Sent Successfully</div><p style="font-size: 0.9rem; color: var(--muted); margin-top: 8px;">Alert ID: ${alertId} | Location: ${location}<br><a href="${mapsLink}" target="_blank" style="color: var(--accent-1);">🗺️ View on Google Maps</a>${trustedContact ? ' | SMS sent to ' + trustedContact : ''}</p>`;
+  
+  showNotification('success', 'SOS Alert Sent!', `Emergency alert logged. ${trustedContact ? 'SMS sent to trusted contact.' : 'Add trusted contact in Settings for SMS alerts.'}`);
+  
+  // Send SMS with Google Maps link
+  if(trustedContact && window.sendSMS) {
+    try {
+      await sendSMS(trustedContact, `🚨 SafeTap Emergency Alert 🚨\nLocation: ${location}\nGoogle Maps: ${mapsLink}\nTime: ${new Date().toLocaleString()}\nThis is an automated emergency message.`);
+    } catch(e) {
+      console.log('SMS failed:', e);
+    }
+  }
+  
+  setTimeout(() => {
+    if(window.loadCommunityData) loadCommunityData();
+    renderReports();
+  }, 1000);
+};
+
+// Report Form
+$('#reportForm').onsubmit=async e=>{
+  e.preventDefault();
+  const type=$('#rType').value,desc=$('#rDesc').value,anon=$('#rAnon').checked;
+  const r=await createReport({type,description:desc,anonymous:anon});
+  $('#reportStatus').textContent='Report saved (id '+r.id+')';
+  $('#rDesc').value='';
+};
+
+// Leaflet Map - South Africa focused
+let map, markerLayer, safetyZones;
+
+// City coordinates for South Africa
+const cities = {
+  'Johannesburg': [-26.2041, 28.0473],
+  'Cape Town': [-33.9249, 18.4241],
+  'Durban': [-29.8587, 31.0218],
+  'Pretoria': [-25.7479, 28.2293],
+  'Sandton': [-26.1076, 28.0567],
+  'Soweto': [-26.2678, 27.8546]
+};
+
+// Initialize map with better tile server
+map = L.map('map').setView(cities['Johannesburg'], 10);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+
+markerLayer = L.layerGroup().addTo(map);
+safetyZones = L.layerGroup().addTo(map);
+
+// South African Safety Zones with city names
+const safetyZoneData = [
+  {name: 'Sandton', coords: cities['Sandton'], safety: 'Safe Zone', color: 'green'},
+  {name: 'Cape Town CBD', coords: cities['Cape Town'], safety: 'Safe Zone', color: 'green'},
+  {name: 'Durban Beachfront', coords: cities['Durban'], safety: 'Caution Zone', color: 'orange'},
+  {name: 'Pretoria Central', coords: cities['Pretoria'], safety: 'Caution Zone', color: 'orange'},
+  {name: 'Soweto', coords: cities['Soweto'], safety: 'High Alert Zone', color: 'red'},
+  {name: 'Johannesburg CBD', coords: cities['Johannesburg'], safety: 'High Alert Zone', color: 'red'}
+];
+
+// Add safety zone circles
+safetyZoneData.forEach(zone => {
+  const circle = L.circle(zone.coords, {
+    color: zone.color,
+    fillColor: zone.color,
+    fillOpacity: 0.3,
+    radius: 3000
+  }).bindPopup(`<b>${zone.name}</b><br>${zone.safety}`);
+  safetyZones.addLayer(circle);
+});
+
+async function showMarkers(){
+  markerLayer.clearLayers();
+  
+  // Load reports from API
+  const r = await loadReportsFromAPI();
+  
+  for(const x of r) {
+    // Get AI risk analysis for each report location
+    const riskData = await analyzeRisk(x.latitude || x.lat, x.longitude || x.lon);
+    
+    const marker = L.marker([x.latitude || x.lat, x.longitude || x.lon])
+      .bindPopup(`
+        <div style="min-width: 200px;">
+          <b>${x.type}</b><br>
+          ${x.description}<br>
+          <small>📍 ${x.location||'Unknown Location'}</small><br>
+          <div style="margin-top: 8px; padding: 6px; background: ${riskData.riskLevel === 'high' ? '#fee2e2' : riskData.riskLevel === 'medium' ? '#fef3c7' : '#f0fdf4'}; border-radius: 4px;">
+            <strong>Risk Level: ${riskData.riskLevel.toUpperCase()}</strong><br>
+            <small>${riskData.recommendations?.[0] || 'Stay alert'}</small>
+          </div>
+        </div>
+      `)
+      .addTo(markerLayer);
+  }
+  
+  if(r.length) map.fitBounds(markerLayer.getBounds());
+}
+
+function showHeat(){
+  // Simple heatmap simulation with colored circles
+  markerLayer.clearLayers();
+  const r=loadReports();
+  r.forEach(x => {
+    L.circle([x.lat, x.lon], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 500
+    }).bindPopup(`<b>${x.type}</b><br>${x.description}`).addTo(markerLayer);
+  });
+}
+$('#showMarkers').onclick=showMarkers;
+$('#showHeat').onclick=showHeat;
+
+let safetyZonesVisible = true;
+$('#showSafetyZones').onclick=()=>{
+  if(safetyZonesVisible){
+    map.removeLayer(safetyZones);
+    $('#showSafetyZones').textContent='Safety Zones';
+  }else{
+    map.addLayer(safetyZones);
+    $('#showSafetyZones').textContent='Hide Zones';
+  }
+  safetyZonesVisible = !safetyZonesVisible;
+};
+
+$('#clearReports').onclick=()=>{
+  localStorage.removeItem(STORAGE_KEY);
+  markerLayer.clearLayers();
+  renderReports();
+};
+
+// Voice Recognition
+let recognition;
+if('webkitSpeechRecognition' in window){
+  recognition=new webkitSpeechRecognition();
+  recognition.continuous=true;
+  recognition.onresult=async e=>{
+    const text=e.results[e.resultIndex][0].transcript.toLowerCase();
+    if(text.includes('help')||text.includes('safe tap')){
+      await createReport({type:'Voice',description:text,anonymous:true});
+      alert('Voice-triggered SOS detected!');
+    }
+  };
+}
+$('#startVoice').onclick=()=>{if(recognition){recognition.start();alert('Listening... say "Help me"');}else alert('Voice recognition not supported');};
+
+// Settings functions
+function saveSettings() {
+  const lang = $('#langSelect').value;
+  const alertMethod = $('#alertMethod').value;
+  const trustedContact = $('#trustedContact').value;
+  
+  if(trustedContact && !trustedContact.match(/^\+27[0-9]{9}$/)) {
+    showNotification('error', 'Invalid Number', 'Please enter a valid South African number (+27xxxxxxxxx)');
+    return;
+  }
+  
+  localStorage.setItem('preferredLanguage', lang);
+  localStorage.setItem('alertMethod', alertMethod);
+  localStorage.setItem('trustedContact', trustedContact);
+  
+  showNotification('success', 'Settings Saved!', `Trusted contact: ${trustedContact || 'None set'}`);
+  
+  // Test SMS if contact is set
+  if(trustedContact) {
+    sendTestSMS(trustedContact);
+  }
+}
+
+async function sendTestSMS(phoneNumber) {
+  try {
+    const result = await sendSMS(phoneNumber, `SafeTap Test: Your emergency contact has been set up successfully. You will receive alerts from this number.`);
+    
+    if(result.success) {
+      showNotification('success', 'Test SMS Sent!', `Check ${phoneNumber} for confirmation`);
+    } else {
+      throw new Error(result.error || 'SMS failed');
+    }
+  } catch(error) {
+    showNotification('warning', 'SMS Setup Issue', 'Contact saved but SMS test failed. Check your number.');
+  }
+}
+
+// Load saved settings
+function loadSettings() {
+  const lang = localStorage.getItem('preferredLanguage') || 'English';
+  const alertMethod = localStorage.getItem('alertMethod') || 'Push Notification';
+  const trustedContact = localStorage.getItem('trustedContact') || '';
+  
+  $('#langSelect').value = lang;
+  $('#alertMethod').value = alertMethod;
+  $('#trustedContact').value = trustedContact;
+}
+
+// Send emergency SMS
+async function sendEmergencySMS(phoneNumber, lat, lon, location) {
+  try {
+    // Get detailed location info with timeout
+    let cityName = location;
+    try {
+      const response = await Promise.race([
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`),
+        new Promise((_,rej)=>setTimeout(()=>rej(new Error('Geocoding timeout')),3000))
+      ]);
+      const data = await response.json();
+      cityName = data.city || data.locality || data.principalSubdivision || location;
+    } catch (e) {
+      console.log('Geocoding failed, using default location');
+    }
+    
+    const result = await Promise.race([
+      sendSMS(phoneNumber, `🚨 SafeTap Emergency Alert 🚨\nCity: ${cityName}\nGoogle Maps: https://maps.google.com/?q=${lat},${lon}\nTime: ${new Date().toLocaleString()}\nThis is an automated emergency message.`),
+      new Promise((_,rej)=>setTimeout(()=>rej(new Error('SMS timeout')),8000))
+    ]);
+    
+    if(!result || !result.success) throw new Error(result?.error || 'SMS failed');
+    showNotification('success', 'SMS Sent!', `Emergency SMS sent to ${phoneNumber}`);
+  } catch(error) {
+    console.error('SMS Error:', error);
+    showNotification('warning', 'SMS Failed', `Could not send SMS: ${error.message}`);
+  }
+}
+
+// Admin Dashboard Chart
+const ctx=document.getElementById('chart');
+const chart=new Chart(ctx,{type:'bar',data:{labels:['SOS','Tap','Shake','Voice','Report'],
+datasets:[{label:'Incident Counts',data:[3,2,1,1,4],backgroundColor:'rgba(106,90,249,0.6)'}]},options:{plugins:{legend:{display:false}}}});
+
+// Community functions
+async function loadCommunityData() {
+  const reports = loadReports(); // Use local reports instead of API
+  
+  // Update stats
+  document.getElementById('totalReports').textContent = reports.length;
+  document.getElementById('totalAlerts').textContent = reports.filter(r => r.type === 'SOS').length;
+  
+  // Show recent reports with improved formatting
+  const recentDiv = document.getElementById('recentReports');
+  if (reports.length === 0) {
+    recentDiv.innerHTML = '<p style="color: #666; font-style: italic; text-align: center; padding: 20px;">📋 No reports yet.<br>Be the first to contribute to community safety!</p>';
+  } else {
+    const recent = reports.slice(-5).reverse(); // Show 5 most recent
+    recentDiv.innerHTML = recent.map(r => {
+      const time = r.ts ? new Date(r.ts).toLocaleDateString() : new Date(r.timestamp || Date.now()).toLocaleDateString();
+      const typeIcon = r.type === 'SOS' ? '🆘' : r.type === 'harassment' ? '⚠️' : r.type === 'theft' ? '🚨' : r.type === 'violence' ? '🔴' : '📝';
+      const anonymousLabel = r.anonymous ? '👤 Anonymous' : '👤 User Report';
+      const mapsLink = r.lat && r.lon ? `https://maps.google.com/?q=${r.lat},${r.lon}` : null;
+      return `<div style="padding: 12px; border-left: 4px solid var(--accent-1); margin: 10px 0; background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05)); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <strong style="color: var(--accent-1);">${typeIcon} ${r.type.toUpperCase()}</strong>
+          <small style="background: rgba(102, 126, 234, 0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">📍 ${r.location || 'Unknown'}</small>
+        </div>
+        <div style="color: #374151; margin-bottom: 6px;">${r.description.substring(0, 80)}${r.description.length > 80 ? '...' : ''}</div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted);">
+          <span>⏰ ${time}</span>
+          <span>${anonymousLabel}</span>
+        </div>
+        ${mapsLink ? `<div style="margin-top: 4px;"><a href="${mapsLink}" target="_blank" style="color: var(--accent-1); font-size: 0.8rem; text-decoration: none;">🗺️ View Location</a></div>` : ''}
+      </div>`;
+    }).join('');
+  }
+}
+
+// Update data when switching tabs
+$$('.topnav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.screen === 'community') {
+      loadCommunityData();
+    } else if (btn.dataset.screen === 'settings') {
+      loadSettings();
+    }
+  });
+});
+
+// Dropdown toggle function
+function toggleDropdown() {
+  document.getElementById('dropdownMenu').classList.toggle('show');
+}
+
+// Close dropdown when clicking outside
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    const dropdowns = document.getElementsByClassName('dropdown-content');
+    for (let i = 0; i < dropdowns.length; i++) {
+      const openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+// Init
+renderReports();
+showMarkers();
+loadCommunityData();
+loadSettings();
+  </script>
+
+
+<!-- ================== POWER BUTTON SOS SIMULATION ================== -->
+<section id="powerSOS" class="screen">
+  <h2>Power Button SOS (Simulation)</h2>
+  <p class="lead">In a real mobile app, triple-pressing the power button would trigger an automatic SOS alert.
+  This simulation lets you test that behavior on the web.</p>
+
+  <button id="simulatePower" class="primary">Simulate Triple Power Press</button>
+
+  <div id="powerStatus" class="lead"></div>
+</section>
+
+<script>
+let powerClickCount = 0;
+let lastPowerClickTime = 0;
+
+// Simulate triple-press detection
+document.getElementById('simulatePower').addEventListener('click', async () => {
+  const now = Date.now();
+  if (now - lastPowerClickTime < 800) powerClickCount++;
+  else powerClickCount = 1;
+  lastPowerClickTime = now;
+
+  if (powerClickCount === 3) {
+    powerClickCount = 0;
+    document.getElementById('powerStatus').textContent = 'Triple power press detected! Sending SOS...';
+
+    // Get current location
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const nearestCity = getNearestCity(lat, lon);
+
+      // Save report
+      const rep = await createReport({
+        type: 'PowerSOS',
+        description: 'Triggered via triple power press',
+        anonymous: false
+      });
+
+      // Mark user path on map
+      const userMarker = L.marker([lat, lon])
+        .bindPopup(`<b>Power SOS Triggered</b><br>Location: ${nearestCity}`)
+        .addTo(markerLayer);
+      map.setView([lat, lon], 15);
+
+      document.getElementById('powerStatus').textContent =
+        `SOS sent! Location: ${nearestCity}`;
+    }, () => {
+      document.getElementById('powerStatus').textContent =
+        'Unable to access location.';
+    });
+  }
+});
+</script>
+
+</body>
+</html>

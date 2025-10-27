@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Create Profile & Login - SafeTap Sphere</title>
+  <style>
+    :root {
+      --accent-1: #667eea;
+      --accent-2: #f093fb;
+      --danger: #ef4444;
+    }
+    * {
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fee2e2, #d5c1c1);
+      margin: 0;
+      padding: 10px;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: calc(100% - 20px);
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 0;
+      box-sizing: border-box;
+      height: calc(100vh - 20px);
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      left: 10px;
+    }
+    h2 { 
+      text-align: center; 
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); 
+      background-clip: text;
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+      font-size: 1.8rem;
+      margin: 0 0 20px 0;
+    }
+    label { 
+      display: block; 
+      margin: 12px 0 4px; 
+      color: var(--accent-1); 
+      font-weight: 600; 
+    }
+    input { 
+      width: 100%; 
+      padding: 12px 16px; 
+      border: 2px solid rgba(102, 126, 234, 0.2); 
+      border-radius: 8px; 
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus {
+      border-color: var(--accent-1);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      outline: none;
+    }
+    button {
+      width: 100%; 
+      padding: 16px; 
+      border: none; 
+      border-radius: 8px;
+      cursor: pointer; 
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: white; 
+      font-weight: 600; 
+      margin-top: 16px;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      min-height: 48px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    p { 
+      text-align: center; 
+      margin-top: 20px; 
+      color: #64748b; 
+    }
+    a { 
+      color: var(--accent-1); 
+      text-decoration: none; 
+      font-weight: 600; 
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--accent-2);
+    }
+    .demo-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(240, 147, 251, 0.9));
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      max-width: 140px;
+    }
+    .demo-info h4 {
+      margin: 0 0 4px 0;
+      font-size: 12px;
+    }
+    .demo-info p {
+      margin: 1px 0;
+      font-family: monospace;
+      font-size: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        margin: 5px 0;
+        padding: 16px;
+        border-radius: 8px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .demo-info {
+        font-size: 10px;
+        padding: 6px 8px;
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-info">
+    <h4>🔑 Demo Account</h4>
+    <p>Email: demo@safetap.com</p>
+    <p>Password: demo123</p>
+  </div>
+
+  <div class="container" id="createProfile">
+    <h2>Create Profile</h2>
+    <form id="profileForm">
+      <label>Full Name:</label>
+      <input type="text" id="pName" required placeholder="Enter your full name">
+
+      <label>Email:</label>
+      <input type="email" id="pEmail" required placeholder="Enter your email">
+
+      <label>Password:</label>
+      <input type="password" id="pPass" required placeholder="Create a password">
+
+      <label>Confirm password:</label>
+      <input type="password" id="pConfirmPass" required placeholder="Re-enter your password">
+
+      <label>Phone Number:</label>
+      <input type="text" id="pPhone" required placeholder="+27...">
+
+      <button type="submit">Create Profile</button>
+    </form>
+    <p>Already have an account? <a id="gotoLogin">Login here</a></p>
+    <div style="text-align: center; margin-top: 20px; font-size: 0.8rem;">
+      <a onclick="document.getElementById('privacyModal').style.display='block'" style="color: var(--accent-1); margin: 0 10px; cursor: pointer;">Privacy Policy</a> | 
+      <a onclick="document.getElementById('termsModal').style.display='block'" style="color: var(--accent-1); margin: 0 10px; cursor: pointer;">Terms & Conditions</a>
+    </div>
+  </div>
+
+  <div class="container" id="loginPage" style="display:none;">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label>Email:</label>
+      <input type="email" id="loginEmail" required placeholder="Enter your email">
+      <label>Password:</label>
+      <input type="password" id="loginPass" required placeholder="Enter your password">
+      
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have a profile? <a id="gotoCreate">Create one</a></p>
+    <div style="text-align: center; margin-top: 20px; font-size: 0.8rem;">
+      <a onclick="document.getElementById('privacyModal').style.display='block'" style="color: var(--accent-1); margin: 0 10px; cursor: pointer;">Privacy Policy</a> | 
+      <a onclick="document.getElementById('termsModal').style.display='block'" style="color: var(--accent-1); margin: 0 10px; cursor: pointer;">Terms & Conditions</a>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+
+      
+    </form>
+    <p>Don’t have a profile? <a id="gotoCreate">Create one</a></p>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+    <div style="background:white; margin:5% auto; padding:20px; width:90%; max-width:600px; border-radius:12px; max-height:80%; overflow-y:auto;">
+      <h2 style="color: var(--accent-1);">Privacy Policy</h2>
+      <p><strong>Last updated:</strong> December 2024</p>
+      <h3>Information We Collect</h3>
+      <ul>
+        <li>Location data for emergency services</li>
+        <li>Contact information for trusted contacts</li>
+        <li>Anonymous incident reports</li>
+      </ul>
+      <h3>How We Use Your Information</h3>
+      <ul>
+        <li>Send emergency alerts to your trusted contacts</li>
+        <li>Provide safety recommendations</li>
+        <li>Improve community safety features</li>
+      </ul>
+      <h3>Data Security</h3>
+      <p>We use industry-standard encryption and secure servers to protect your data.</p>
+      <h3>Your Rights</h3>
+      <p>You can delete your account and data at any time through the app settings.</p>
+      <button onclick="document.getElementById('privacyModal').style.display='none'" style="background: var(--accent-1); color: white; border: none; padding: 10px 20px; border-radius: 6px; margin-top: 20px;">Close</button>
+    </div>
+  </div>
+
+  <!-- Terms & Conditions Modal -->
+  <div id="termsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+    <div style="background:white; margin:5% auto; padding:20px; width:90%; max-width:600px; border-radius:12px; max-height:80%; overflow-y:auto;">
+      <h2 style="color: var(--accent-1);">Terms & Conditions</h2>
+      <p><strong>Last updated:</strong> December 2024</p>
+      <h3>Acceptance of Terms</h3>
+      <p>By using SafeTap Sphere, you agree to these terms and conditions.</p>
+      <h3>Service Description</h3>
+      <p>SafeTap Sphere is an emergency safety application that provides:</p>
+      <ul>
+        <li>Emergency SOS alerts</li>
+        <li>Community incident reporting</li>
+        <li>Safety zone mapping</li>
+        <li>Educational resources</li>
+      </ul>
+      <h3>User Responsibilities</h3>
+      <ul>
+        <li>Provide accurate emergency contact information</li>
+        <li>Use the service responsibly and lawfully</li>
+        <li>Report genuine safety incidents only</li>
+      </ul>
+      <h3>Limitations</h3>
+      <p>SafeTap Sphere is a supplementary safety tool. Always contact emergency services (10111) for immediate help.</p>
+      <button onclick="document.getElementById('termsModal').style.display='none'" style="background: var(--accent-1); color: white; border: none; padding: 10px 20px; border-radius: 6px; margin-top: 20px;">Close</button>
+    </div>
+  </div>
+
+  <script src="api-integration.js"></script>
+  <script>
+    const createProfile = document.getElementById("createProfile");
+    const loginPage = document.getElementById("loginPage");
+
+    // Switch between pages
+    document.getElementById("gotoLogin").onclick = () => {
+      createProfile.style.display = "none";
+      loginPage.style.display = "block";
+    };
+    document.getElementById("gotoCreate").onclick = () => {
+      loginPage.style.display = "none";
+      createProfile.style.display = "block";
+    };
+
+    // Handle profile creation
+    document.getElementById("profileForm").onsubmit = async e => {
+      e.preventDefault();
+      const name = document.getElementById("pName").value;
+      const email = document.getElementById("pEmail").value;
+      const pass = document.getElementById("pPass").value;
+      const confirmPass = document.getElementById("pConfirmPass").value;
+      const phone = document.getElementById("pPhone").value;
+      
+      if (pass !== confirmPass) {
+        alert("Passwords don't match!");
+        return;
+      }
+      
+      try {
+        const result = await registerUser(email, pass, name, phone);
+        if (result.success) {
+          alert("✅ Profile created successfully! Please log in.");
+          // Clear form
+          document.getElementById("profileForm").reset();
+          createProfile.style.display = "none";
+          loginPage.style.display = "block";
+          // Pre-fill login email
+          document.getElementById("loginEmail").value = email;
+        } else {
+          alert("❌ Registration failed: " + (result.error || "Unknown error"));
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert("❌ Registration failed: Network error. Please try again.");
+      }
+    };
+
+    // Handle login
+    document.getElementById("loginForm").onsubmit = async e => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const pass = document.getElementById("loginPass").value;
+
+      // Demo account fallback
+      if (email === "demo@safetap.com" && pass === "demo123") {
+        localStorage.setItem("safetap_logged_in", "true");
+        localStorage.setItem("currentUser", JSON.stringify({
+          id: '00000000-0000-0000-0000-000000000001',
+          email: 'demo@safetap.com',
+          full_name: 'Demo User'
+        }));
+        window.location.href = "safe.html";
+        return;
+      }
+
+      const result = await loginUser(email, pass);
+      if (result.success) {
+        localStorage.setItem("safetap_logged_in", "true");
+        window.location.href = "safe.html";
+      } else {
+        alert(result.error || "Login failed. Try demo: demo@safetap.com / demo123");
+      }
+    };
+  </script>
+
+</body>
+</html>
