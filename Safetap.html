@@ -330,16 +330,7 @@
         return;
       }
       
-      // For any other login, use demo mode for now
-      alert("Backend unavailable. Using demo mode.");
-      localStorage.setItem("safetap_logged_in", "true");
-      localStorage.setItem("currentUser", JSON.stringify({
-        id: '00000000-0000-0000-0000-000000000002',
-        email: email,
-        full_name: 'Demo User'
-      }));
-      window.location.href = "safe.html";
-      return;
+
 
       const result = await loginUser(email, pass);
       if (result.success) {
